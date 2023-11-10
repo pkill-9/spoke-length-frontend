@@ -1,2 +1,21 @@
-<h2>Placeholder for hub listing</h2>
-<p>hub-list works!</p>
+<h2>All Hubs:</h2>
+<div *ngIf="hubList">
+    <table>
+        <thead>
+            <th>Hub ID</th>
+            <th>Manufacturer</th>
+            <th>Description</th>
+            <th>Date Acquired</th>
+            <th>Spoke Holes</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let hub of hubs">
+                <td>{{hub.id}}</td>
+                <td>{{hub.manufacturer}}</td>
+                <td>{{hub.description}}</td>
+                <td>{{hub.dateAcquired}}</td>
+                <td>{{hub.spokeHoles}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
