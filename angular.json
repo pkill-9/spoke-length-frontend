@@ -63,7 +63,8 @@
               "browserTarget": "spoke-length-frontend:build:production"
             },
             "development": {
-              "browserTarget": "spoke-length-frontend:build:development"
+              "browserTarget": "spoke-length-frontend:build:development",
+              "proxyConfig": "src/proxy-dev.conf.json"
             }
           },
           "defaultConfiguration": "development"

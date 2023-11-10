@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Hub } from '../hub';
 import { HubList } from '../hub-list';
-import { HubService } from '../hub-service';
+import { HubService } from '../hub.service';
 
 @Component({
   selector: 'app-hub-list',
