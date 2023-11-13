@@ -7,6 +7,7 @@
             <th>Description</th>
             <th>Date Acquired</th>
             <th>Spoke Holes</th>
+            <th>Actions</th>
         </thead>
         <tbody>
             <tr *ngFor="let hub of hubs">
@@ -15,7 +16,15 @@
                 <td>{{hub.description}}</td>
                 <td>{{hub.dateAcquired}}</td>
                 <td>{{hub.spokeHoles}}</td>
+                <td>
+                    <button routerLink="/hubs/{{hub.id}}">Edit...</button>
+                </td>
             </tr>
         </tbody>
     </table>
+    <button>Previous Page</button>
+    <button>Next Page</button>
+    <p>
+    {{pageStart}} to {{pageEnd}} of {{totalHubs}}
+    </p>
 </div>

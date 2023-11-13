@@ -22,6 +22,28 @@ export class HubService {
         );
     }
 
+    getHub (id: number): Observable <Hub> {
+        const hubUrl = `/api/hubs/${id}`;
+
+        return this.http.get<Hub> (hubUrl).pipe (
+            catchError (this.handleError<Hub> (`getHub id = ${id}`))
+        );
+    }
+
+    updateHub (hub: Hub): Observable <any> {
+        const updateUrl = `/api/hubs/${hub.id}`;
+        return this.http.put (updateUrl, hub, this.httpOptions).pipe (
+            catchError (this.handleError<any> ('updateHub'))
+        );
+    }
+
+    createHub (hub: Hub): Observable <Hub> {
+        const createUrl = '/api/hubs';
+        return this.http.post<Hub> (createUrl, hub, this.httpOptions).pipe (
+            catchError (this.handleError<Hub> ('createHub'))
+        );
+    }
+
     private handleError<T> (operation = 'operation', result ?: T) {
         return (error: any): Observable<T> => {
             console.error (error);

@@ -1,0 +1,14 @@
+<div *ngIf="hub">
+    <input id="manufacturer" [(ngModel)]="hub.manufacturer" placeholder="Manufacturer"/>
+    <textarea id="description" [(ngModel)]="hub.description" rows="4" cols="80" placeholder="Description"></textarea>
+    <label for="inService">In Service</label>
+    <input id="inService" type="checkbox" [(ngModel)]="hub.inService"/>
+    <label for="dateAcquired">Date Acquired</label>
+    <input id="dateAcquired" type="date" [(ngModel)]="hub.dateAcquired"/>
+    <label for="spokeHoles">Spoke Holes</label>
+    <input id="spokeHoles" type="number" [(ngModel)]="hub.spokeHoles" placeholder="Spoke Holes"/>
+    <label for="rightFlangeFromLocknut">Right Flange from Locknut</label>
+    <input id="rightFlangeFromLocknut" type="number" [(ngModel)]="hub.rightFlangeFromLocknut" placeholder="Right Flange from Locknut"/>
+    <button (click)="update()">Update</button>
+    <button (click)="goBack()">Cancel</button>
+</div>
