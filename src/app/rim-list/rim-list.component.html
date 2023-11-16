@@ -1,0 +1,26 @@
+<h2>All Rims:</h2>
+<div *ngIf="rimList">
+    <table>
+        <thead>
+            <th>Rim ID</th>
+            <th>Manufacturer</th>
+            <th>Description</th>
+            <th>Date Acquired</th>
+            <th>Spoke Holes</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let rim of rims">
+                <td>{{rim.id}}</td>
+                <td>{{rim.manufacturer}}</td>
+                <td>{{rim.description}}</td>
+                <td>{{rim.dateAcquired}}</td>
+                <td>{{rim.spokeHoles}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <button>Previous Page</button>
+    <button>Next Page</button>
+    <p>
+    {{pageStart}} to {{pageEnd}} of {{totalRims}}
+    </p>
+</div>
