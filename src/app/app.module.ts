@@ -8,13 +8,15 @@ import { AppComponent } from './app.component';
 import { HubListComponent } from './hub-list/hub-list.component';
 import { HubDetailsComponent } from './hub-details/hub-details.component';
 import { RimListComponent } from './rim-list/rim-list.component';
+import { CalculatorComponent } from './calculator/calculator.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HubListComponent,
     HubDetailsComponent,
-    RimListComponent
+    RimListComponent,
+    CalculatorComponent
   ],
   imports: [
     BrowserModule,

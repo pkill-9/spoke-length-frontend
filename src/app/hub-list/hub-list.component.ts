@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { Hub } from '../hub';
 import { HubList } from '../hub-list';
 import { HubService } from '../hub.service';
@@ -8,7 +8,8 @@ import { HubService } from '../hub.service';
   templateUrl: './hub-list.component.html',
   styleUrls: ['./hub-list.component.css']
 })
-export class HubListComponent implements OnInit {
+export class HubListComponent implements OnInit, OnChanges {
+    @Input() spokeCount = '';
     hubs: Hub[] = [];
     hubList: HubList | undefined;
     currentPage: number = 0;
@@ -24,30 +25,32 @@ export class HubListComponent implements OnInit {
         this.getHubs ();
     }
 
-    private getHubs (): void {
-        this.hubService.getHubs (this.currentPage, this.orderBy, this.direction).subscribe (hubList => {
-            this.hubList = hubList;
-            this.hubs = hubList._embedded.hubs;
-            this.pageStart = hubList.page.number * hubList.page.size + 1;
-            this.pageEnd = this.pageStart + this.hubs.length - 1;
-            this.totalHubs = hubList.page.totalElements;
-        });
+    /**
+     *  Called every time the parent CalculatorComponent updates the spoke count
+     *  from the value entered in the text field. The value is placed in the spokeCount
+     *  prop, all we need to do is fetch the list of hubs from the API.
+     */
+    ngOnChanges () {
+        this.getHubs ();
     }
 
-    filterBySpokeCount (event: Event): void {
-        const spokeCount = (event.target as HTMLInputElement).value;
-
-        if (spokeCount == "") {
-            this.getHubs ();
-            return;
+    private getHubs (): void {
+        if (this.spokeCount == "") {
+            this.hubService.getHubs (this.currentPage, this.orderBy, this.direction).subscribe (hubList => {
+                this.hubList = hubList;
+                this.hubs = hubList._embedded.hubs;
+                this.pageStart = hubList.page.number * hubList.page.size + 1;
+                this.pageEnd = this.pageStart + this.hubs.length - 1;
+                this.totalHubs = hubList.page.totalElements;
+            });
+        } else {
+            this.hubService.getBySpokeCount (this.currentPage, Number (this.spokeCount), this.orderBy, this.direction).subscribe (hubList => {
+                this.hubList = hubList;
+                this.hubs = hubList._embedded.hubs;
+                this.pageStart = hubList.page.number * hubList.page.size + 1;
+                this.pageEnd = this.pageStart + this.hubs.length - 1;
+                this.totalHubs = hubList.page.totalElements;
+            });
         }
-
-        this.hubService.getBySpokeCount (this.currentPage, Number (spokeCount), this.orderBy, this.direction).subscribe (hubList => {
-            this.hubList = hubList;
-            this.hubs = hubList._embedded.hubs;
-            this.pageStart = hubList.page.number * hubList.page.size + 1;
-            this.pageEnd = this.pageStart + this.hubs.length - 1;
-            this.totalHubs = hubList.page.totalElements;
-        });
     }
 }
