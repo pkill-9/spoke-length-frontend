@@ -33,4 +33,21 @@ export class HubListComponent implements OnInit {
             this.totalHubs = hubList.page.totalElements;
         });
     }
+
+    filterBySpokeCount (event: Event): void {
+        const spokeCount = (event.target as HTMLInputElement).value;
+
+        if (spokeCount == "") {
+            this.getHubs ();
+            return;
+        }
+
+        this.hubService.getBySpokeCount (this.currentPage, Number (spokeCount), this.orderBy, this.direction).subscribe (hubList => {
+            this.hubList = hubList;
+            this.hubs = hubList._embedded.hubs;
+            this.pageStart = hubList.page.number * hubList.page.size + 1;
+            this.pageEnd = this.pageStart + this.hubs.length - 1;
+            this.totalHubs = hubList.page.totalElements;
+        });
+    }
 }

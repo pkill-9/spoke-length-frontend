@@ -22,6 +22,14 @@ export class HubService {
         );
     }
 
+    getBySpokeCount (page: number, spokeCount: number, orderBy: string, direction: string): Observable <HubList> {
+        const url = `/api/hubs/search/findBySpokeHoles?spokeHoles=${spokeCount}&page=${page}&size=10&sort=${orderBy},${direction}`;
+
+        return this.http.get<HubList> (url).pipe (
+            catchError (this.handleError<HubList> ("getHubs"))
+        );
+    }
+
     getHub (id: number): Observable <Hub> {
         const hubUrl = `/api/hubs/${id}`;
 
