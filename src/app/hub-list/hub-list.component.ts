@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angular/core';
 import { Hub } from '../hub';
 import { HubList } from '../hub-list';
 import { HubService } from '../hub.service';
@@ -10,6 +10,7 @@ import { HubService } from '../hub.service';
 })
 export class HubListComponent implements OnInit, OnChanges {
     @Input() spokeCount = '';
+    @Output() hubSelectedEvent = new EventEmitter<string> ();
     hubs: Hub[] = [];
     hubList: HubList | undefined;
     currentPage: number = 0;
@@ -32,6 +33,10 @@ export class HubListComponent implements OnInit, OnChanges {
      */
     ngOnChanges () {
         this.getHubs ();
+    }
+
+    selectedHub (hubID: number): void {
+        this.hubSelectedEvent.emit (hubID.toString ());
     }
 
     private getHubs (): void {

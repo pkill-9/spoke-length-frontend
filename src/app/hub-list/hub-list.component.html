@@ -11,7 +11,11 @@
         </thead>
         <tbody>
             <tr *ngFor="let hub of hubs">
-                <td>{{hub.id}}</td>
+                <td>
+                    <label>
+                        <input type="radio" id="{{hub.id}}" name="hubID" value="{{hub.id}}" (change)="selectedHub(hub.id)">
+                    </label>
+                </td>
                 <td>{{hub.manufacturer}}</td>
                 <td>{{hub.description}}</td>
                 <td>{{hub.dateAcquired}}</td>

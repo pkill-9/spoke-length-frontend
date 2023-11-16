@@ -7,8 +7,20 @@ import { Component } from '@angular/core';
 })
 export class CalculatorComponent {
     spokeCountInput: string = '';
+    selectedHubID: string = '';
+    selectedRimID: string = '';
 
     spokeCountEntry (event: Event): void {
         this.spokeCountInput = (event.target as HTMLInputElement).value;
+        this.selectedHubID = '';
+        this.selectedRimID = '';
+    }
+
+    selectHub (hubID: string): void {
+        this.selectedHubID = hubID;
+    }
+
+    selectRim (rimID: string): void {
+        this.selectedRimID = rimID;
     }
 }

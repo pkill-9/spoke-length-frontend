@@ -1,4 +1,16 @@
     <label>Spoke count:</label>
     <input type="text" (input)="spokeCountEntry ($event)"/>
-<app-hub-list [spokeCount]="spokeCountInput"></app-hub-list>
-<app-rim-list [spokeCount]="spokeCountInput"></app-rim-list>
+<app-hub-list 
+    [spokeCount]="spokeCountInput"
+    (hubSelectedEvent)="selectHub($event)">
+</app-hub-list>
+<app-rim-list 
+    [spokeCount]="spokeCountInput"
+    (rimSelectedEvent)="selectRim($event)">
+</app-rim-list>
+<div>
+    Selected hub id: {{selectedHubID}}
+</div>
+<div>
+    Selected rim id: {{selectedRimID}}
+</div>

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnChanges } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, OnChanges } from '@angular/core';
 import { Rim } from '../rim';
 import { RimList } from '../rim-list';
 import { RimService } from '../rim.service';
@@ -10,6 +10,7 @@ import { RimService } from '../rim.service';
 })
 export class RimListComponent implements OnInit, OnChanges {
     @Input() spokeCount: string = '';
+    @Output() rimSelectedEvent = new EventEmitter<string> ();
     rims: Rim[] = [];
     rimList: RimList | undefined;
     currentPage: number = 0;
@@ -27,6 +28,10 @@ export class RimListComponent implements OnInit, OnChanges {
 
     ngOnChanges (): void {
         this.getRims ();
+    }
+
+    selectedRim (rimID: number): void {
+        this.rimSelectedEvent.emit (rimID.toString ());
     }
 
     private getRims (): void {

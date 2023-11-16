@@ -10,7 +10,11 @@
         </thead>
         <tbody>
             <tr *ngFor="let rim of rims">
-                <td>{{rim.id}}</td>
+                <td>
+                    <label>
+                        <input type="radio" id="{{rim.id}}" name="rimID" value="{{rim.id}}" (change)="selectedRim(rim.id)">
+                    </label>
+                </td>
                 <td>{{rim.manufacturer}}</td>
                 <td>{{rim.description}}</td>
                 <td>{{rim.dateAcquired}}</td>
