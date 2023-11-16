@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnChanges } from '@angular/core';
 import { Rim } from '../rim';
 import { RimList } from '../rim-list';
 import { RimService } from '../rim.service';
@@ -8,7 +8,8 @@ import { RimService } from '../rim.service';
   templateUrl: './rim-list.component.html',
   styleUrls: ['./rim-list.component.css']
 })
-export class RimListComponent implements OnInit {
+export class RimListComponent implements OnInit, OnChanges {
+    @Input() spokeCount: string = '';
     rims: Rim[] = [];
     rimList: RimList | undefined;
     currentPage: number = 0;
@@ -24,32 +25,27 @@ export class RimListComponent implements OnInit {
         this.getRims ();
     }
 
+    ngOnChanges (): void {
+        this.getRims ();
+    }
+
     private getRims (): void {
-        this.rimService.getRims (this.currentPage, this.orderBy, this.direction).subscribe (rimList => {
-            this.rimList = rimList;
-            this.rims = rimList._embedded.rims;
-            this.pageStart = rimList.page.number * rimList.page.size + 1;
-            this.pageEnd = this.pageStart + this.rims.length - 1;
-            this.totalRims = rimList.page.totalElements;
-        });
-    }
-
-    /*
-    filterBySpokeCount (event: Event): void {
-        const spokeCount = (event.target as HTMLInputElement).value;
-
-        if (spokeCount == "") {
-            this.getHubs ();
-            return;
+        if (this.spokeCount == "") {
+            this.rimService.getRims (this.currentPage, this.orderBy, this.direction).subscribe (rimList => {
+                this.rimList = rimList;
+                this.rims = rimList._embedded.rims;
+                this.pageStart = rimList.page.number * rimList.page.size + 1;
+                this.pageEnd = this.pageStart + this.rims.length - 1;
+                this.totalRims = rimList.page.totalElements;
+            });
+        } else {
+            this.rimService.getBySpokeCount (this.currentPage, Number (this.spokeCount), this.orderBy, this.direction).subscribe (rimList => {
+                this.rimList = rimList;
+                this.rims = rimList._embedded.rims;
+                this.pageStart = rimList.page.number * rimList.page.size + 1;
+                this.pageEnd = this.pageStart + this.rims.length - 1;
+                this.totalRims = rimList.page.totalElements;
+            });
         }
-
-        this.hubService.getBySpokeCount (this.currentPage, Number (spokeCount), this.orderBy, this.direction).subscribe (hubList => {
-            this.hubList = hubList;
-            this.hubs = hubList._embedded.hubs;
-            this.pageStart = hubList.page.number * hubList.page.size + 1;
-            this.pageEnd = this.pageStart + this.hubs.length - 1;
-            this.totalHubs = hubList.page.totalElements;
-        });
     }
-    */
 }

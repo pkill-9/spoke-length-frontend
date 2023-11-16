@@ -22,15 +22,13 @@ export class RimService {
         );
     }
 
-    /*
-    getBySpokeCount (page: number, spokeCount: number, orderBy: string, direction: string): Observable <HubList> {
-        const url = `/api/hubs/search/findBySpokeHoles?spokeHoles=${spokeCount}&page=${page}&size=10&sort=${orderBy},${direction}`;
+    getBySpokeCount (page: number, spokeCount: number, orderBy: string, direction: string): Observable <RimList> {
+        const url = `/api/rims/search/findBySpokeHoles?spokeHoles=${spokeCount}&page=${page}&size=10&sort=${orderBy},${direction}`;
 
-        return this.http.get<HubList> (url).pipe (
-            catchError (this.handleError<HubList> ("getHubs"))
+        return this.http.get<RimList> (url).pipe (
+            catchError (this.handleError<RimList> ("getBySpokeHoles"))
         );
     }
-    */
 
     private handleError<T> (operation = 'operation', result ?: T) {
         return (error: any): Observable<T> => {
