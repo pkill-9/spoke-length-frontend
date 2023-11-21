@@ -2,11 +2,11 @@
 <div *ngIf="rimList">
     <table>
         <thead>
-            <th>Rim ID</th>
-            <th>Manufacturer</th>
-            <th>Description</th>
-            <th>Date Acquired</th>
-            <th>Spoke Holes</th>
+            <th>Rim ID<button (click)="sortBy ('id', 'asc')">&darr;</button><button (click)="sortBy ('id', 'desc')">&uarr;</button></th>
+            <th>Manufacturer<button (click)="sortBy ('manufacturer', 'asc')">&darr;</button><button (click)="sortBy ('manufacturer', 'desc')">&uarr;</button></th>
+            <th>Description<button (click)="sortBy ('description', 'asc')">&darr;</button><button (click)="sortBy ('description', 'desc')">&uarr;</button></th>
+            <th>Date Acquired<button (click)="sortBy ('dateAcquired', 'asc')">&darr;</button><button (click)="sortBy ('dateAcquired', 'desc')">&uarr;</button></th>
+            <th>Spoke Holes<button (click)="sortBy ('spokeHoles', 'asc')">&darr;</button><button (click)="sortBy ('spokeHoles', 'desc')">&uarr;</button></th>
         </thead>
         <tbody>
             <tr *ngFor="let rim of rims">
@@ -26,8 +26,5 @@
     <button (click)="nextPage ()">Next Page</button>
     <p>
     {{pageStart}} to {{pageEnd}} of {{totalRims}}
-    </p>
-    <p>
-    Page {{currentPage}} of {{rimList.page.totalPages}}
     </p>
 </div>
