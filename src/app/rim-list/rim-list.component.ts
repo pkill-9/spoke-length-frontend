@@ -52,7 +52,35 @@ export class RimListComponent implements OnInit, OnChanges {
                 this.pageStart = rimList.page.number * rimList.page.size + 1;
                 this.pageEnd = this.pageStart + this.rims.length - 1;
                 this.totalRims = rimList.page.totalElements;
+
+                if (this.currentPage >= rimList.page.totalPages - 1)
+                    this.currentPage = rimList.page.totalPages - 1;
+
+                if (rimList.page.totalPages == 0)
+                    this.currentPage = 0;
             });
         }
+    }
+
+    nextPage (): void {
+        if (this.rimList && (this.currentPage == this.rimList.page.totalPages - 1))
+            return;
+
+        this.currentPage ++;
+        this.getRims ();
+    }
+
+    previousPage (): void {
+        if (this.currentPage == 0)
+            return;
+
+        this.currentPage --;
+        this.getRims ();
+    }
+
+    sortBy (fieldName: string, direction: string): void {
+        this.orderBy = fieldName;
+        this.direction = direction;
+        this.getRims ();
     }
 }

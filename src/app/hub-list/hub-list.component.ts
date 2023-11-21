@@ -57,7 +57,35 @@ export class HubListComponent implements OnInit, OnChanges {
                 this.pageStart = hubList.page.number * hubList.page.size + 1;
                 this.pageEnd = this.pageStart + this.hubs.length - 1;
                 this.totalHubs = hubList.page.totalElements;
+
+                if (this.currentPage >= hubList.page.totalPages - 1)
+                    this.currentPage = hubList.page.totalPages - 1;
+
+                if (hubList.page.totalPages == 0)
+                    this.currentPage = 0;
             });
         }
+    }
+
+    nextPage (): void {
+        if (this.hubList && (this.currentPage == this.hubList.page.totalPages - 1))
+            return;
+
+        this.currentPage ++;
+        this.getHubs ();
+    }
+
+    previousPage (): void {
+        if (this.currentPage == 0)
+            return;
+
+        this.currentPage --;
+        this.getHubs ();
+    }
+
+    sortBy (fieldName: string, direction: string): void {
+        this.orderBy = fieldName;
+        this.direction = direction;
+        this.getHubs ();
     }
 }
