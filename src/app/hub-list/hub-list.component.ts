@@ -13,6 +13,7 @@ export class HubListComponent implements OnInit, OnChanges {
     @Output() hubSelectedEvent = new EventEmitter<string> ();
     hubs: Hub[] = [];
     hubList: HubList | undefined;
+    hubSelected: number = 0;
     currentPage: number = 0;
     pageStart: number = 0;
     pageEnd: number = 0;
@@ -36,6 +37,7 @@ export class HubListComponent implements OnInit, OnChanges {
     }
 
     selectedHub (hubID: number): void {
+        this.hubSelected = hubID;
         this.hubSelectedEvent.emit (hubID.toString ());
     }
 

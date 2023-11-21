@@ -13,7 +13,7 @@
             <tr *ngFor="let hub of hubs">
                 <td>
                     <label>
-                        <input type="radio" id="{{hub.id}}" name="hubID" value="{{hub.id}}" (change)="selectedHub(hub.id)">
+                        <input type="radio" id="{{hub.id}}" name="hubID" [value]="hub.id" (change)="selectedHub(hub.id)" [checked]="(hubSelected === hub.id)? true : false">
                     </label>
                 </td>
                 <td>{{hub.manufacturer}}</td>

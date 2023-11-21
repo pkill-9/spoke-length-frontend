@@ -13,6 +13,7 @@ export class RimListComponent implements OnInit, OnChanges {
     @Output() rimSelectedEvent = new EventEmitter<string> ();
     rims: Rim[] = [];
     rimList: RimList | undefined;
+    rimSelected: number = 0;
     currentPage: number = 0;
     pageStart: number = 0;
     pageEnd: number = 0;
@@ -31,6 +32,7 @@ export class RimListComponent implements OnInit, OnChanges {
     }
 
     selectedRim (rimID: number): void {
+        this.rimSelected = rimID;
         this.rimSelectedEvent.emit (rimID.toString ());
     }
 

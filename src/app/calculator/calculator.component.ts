@@ -12,8 +12,6 @@ export class CalculatorComponent {
 
     spokeCountEntry (event: Event): void {
         this.spokeCountInput = (event.target as HTMLInputElement).value;
-        this.selectedHubID = '';
-        this.selectedRimID = '';
     }
 
     selectHub (hubID: string): void {

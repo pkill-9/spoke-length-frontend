@@ -12,7 +12,7 @@
             <tr *ngFor="let rim of rims">
                 <td>
                     <label>
-                        <input type="radio" id="{{rim.id}}" name="rimID" value="{{rim.id}}" (change)="selectedRim(rim.id)">
+                        <input type="radio" id="{{rim.id}}" name="rimID" [value]="rim.id" (change)="selectedRim(rim.id)" [checked]="(rimSelected === rim.id)? true : false">
                     </label>
                 </td>
                 <td>{{rim.manufacturer}}</td>
