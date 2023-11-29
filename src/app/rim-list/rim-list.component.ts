@@ -37,29 +37,25 @@ export class RimListComponent implements OnInit, OnChanges {
     }
 
     private getRims (): void {
-        if (this.spokeCount == "") {
-            this.rimService.getRims (this.currentPage, this.orderBy, this.direction).subscribe (rimList => {
-                this.rimList = rimList;
-                this.rims = rimList._embedded.rims;
-                this.pageStart = rimList.page.number * rimList.page.size + 1;
-                this.pageEnd = this.pageStart + this.rims.length - 1;
-                this.totalRims = rimList.page.totalElements;
-            });
-        } else {
-            this.rimService.getBySpokeCount (this.currentPage, Number (this.spokeCount), this.orderBy, this.direction).subscribe (rimList => {
-                this.rimList = rimList;
-                this.rims = rimList._embedded.rims;
-                this.pageStart = rimList.page.number * rimList.page.size + 1;
-                this.pageEnd = this.pageStart + this.rims.length - 1;
-                this.totalRims = rimList.page.totalElements;
+        var numSpokes: number | null;
+        var etrtoDiameter: number | null;
 
-                if (this.currentPage >= rimList.page.totalPages - 1)
-                    this.currentPage = rimList.page.totalPages - 1;
+        numSpokes = (this.spokeCount != "")? Number (this.spokeCount) : null;
+        etrtoDiameter = null;
 
-                if (rimList.page.totalPages == 0)
-                    this.currentPage = 0;
-            });
-        }
+        this.rimService.getRims (this.currentPage, numSpokes, etrtoDiameter, this.orderBy, this.direction).subscribe (rimList => {
+            this.rimList = rimList;
+            this.rims = rimList._embedded.rims;
+            this.pageStart = rimList.page.number * rimList.page.size + 1;
+            this.pageEnd = this.pageStart + this.rims.length - 1;
+            this.totalRims = rimList.page.totalElements;
+
+            if (this.currentPage >= rimList.page.totalPages - 1)
+                this.currentPage = rimList.page.totalPages - 1;
+
+            if (rimList.page.totalPages == 0)
+                this.currentPage = 0;
+        });
     }
 
     nextPage (): void {

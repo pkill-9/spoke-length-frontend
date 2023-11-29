@@ -42,29 +42,25 @@ export class HubListComponent implements OnInit, OnChanges {
     }
 
     private getHubs (): void {
-        if (this.spokeCount == "") {
-            this.hubService.getHubs (this.currentPage, this.orderBy, this.direction).subscribe (hubList => {
-                this.hubList = hubList;
-                this.hubs = hubList._embedded.hubs;
-                this.pageStart = hubList.page.number * hubList.page.size + 1;
-                this.pageEnd = this.pageStart + this.hubs.length - 1;
-                this.totalHubs = hubList.page.totalElements;
-            });
-        } else {
-            this.hubService.getBySpokeCount (this.currentPage, Number (this.spokeCount), this.orderBy, this.direction).subscribe (hubList => {
-                this.hubList = hubList;
-                this.hubs = hubList._embedded.hubs;
-                this.pageStart = hubList.page.number * hubList.page.size + 1;
-                this.pageEnd = this.pageStart + this.hubs.length - 1;
-                this.totalHubs = hubList.page.totalElements;
+        var numSpokes: number | null;
+        var locknutSpacing: number | null;
 
-                if (this.currentPage >= hubList.page.totalPages - 1)
-                    this.currentPage = hubList.page.totalPages - 1;
+        numSpokes = (this.spokeCount != "")? Number (this.spokeCount) : null;
+        locknutSpacing = null;
 
-                if (hubList.page.totalPages == 0)
-                    this.currentPage = 0;
-            });
-        }
+        this.hubService.getHubs (this.currentPage, numSpokes, locknutSpacing, this.orderBy, this.direction).subscribe (hubList => {
+            this.hubList = hubList;
+            this.hubs = hubList._embedded.hubs;
+            this.pageStart = hubList.page.number * hubList.page.size + 1;
+            this.pageEnd = this.pageStart + this.hubs.length - 1;
+            this.totalHubs = hubList.page.totalElements;
+
+            if (this.currentPage >= hubList.page.totalPages - 1)
+                this.currentPage = hubList.page.totalPages - 1;
+
+            if (hubList.page.totalPages == 0)
+                this.currentPage = 0;
+        });
     }
 
     nextPage (): void {

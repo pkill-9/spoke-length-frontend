@@ -14,16 +14,14 @@ export class HubService {
         headers: new HttpHeaders ({'Content-Type': 'application/json'})
     };
 
-    getHubs (page: number, orderBy: string, direction: string): Observable <HubList> {
-        const url = `/api/hubs?page=${page}&size=10&sort=${orderBy},${direction}`;
+    getHubs (page: number, spokeCount: number | null, locknutSpacing: number | null, orderBy: string, direction: string): Observable <HubList> {
+        var spokeCountFilter: string;
+        var locknutSpacingFilter: string;
 
-        return this.http.get<HubList> (url).pipe (
-            catchError (this.handleError<HubList> ("getHubs"))
-        );
-    }
+        spokeCountFilter = (spokeCount)? `spokeHoles=${spokeCount}&` : '';
+        locknutSpacingFilter = (locknutSpacing)? `locknutSpacing=${locknutSpacing}&` : '';
 
-    getBySpokeCount (page: number, spokeCount: number, orderBy: string, direction: string): Observable <HubList> {
-        const url = `/api/hubs/search/findBySpokeHoles?spokeHoles=${spokeCount}&page=${page}&size=10&sort=${orderBy},${direction}`;
+        const url = `/api/hubs?${spokeCountFilter}${locknutSpacingFilter}page=${page}&size=10&sort=${orderBy},${direction}`;
 
         return this.http.get<HubList> (url).pipe (
             catchError (this.handleError<HubList> ("getHubs"))
