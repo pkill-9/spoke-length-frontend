@@ -1,5 +1,7 @@
 <h2>All Hubs:</h2>
 <div *ngIf="hubList">
+    <label>Locknut Spacing:</label>
+    <input type="text" (input)="setLocknutSpacing ($event)"/>
     <table>
         <thead>
             <th>Hub ID<button (click)="sortBy ('id', 'asc')">&darr;</button><button (click)="sortBy ('id', 'desc')">&uarr;</button></th>

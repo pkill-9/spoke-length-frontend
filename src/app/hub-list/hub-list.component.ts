@@ -20,6 +20,7 @@ export class HubListComponent implements OnInit, OnChanges {
     totalHubs: number = 0;
     orderBy: string = "id";
     direction: string = "asc";
+    locknutSpacing: string = "";
 
     constructor (private hubService: HubService) {}
 
@@ -41,12 +42,17 @@ export class HubListComponent implements OnInit, OnChanges {
         this.hubSelectedEvent.emit (hubID.toString ());
     }
 
+    setLocknutSpacing (event: Event): void {
+        this.locknutSpacing = (event.target as HTMLInputElement).value;
+        this.getHubs ();
+    }
+
     private getHubs (): void {
         var numSpokes: number | null;
         var locknutSpacing: number | null;
 
         numSpokes = (this.spokeCount != "")? Number (this.spokeCount) : null;
-        locknutSpacing = null;
+        locknutSpacing = (this.locknutSpacing != "")? Number (this.locknutSpacing) : null;
 
         this.hubService.getHubs (this.currentPage, numSpokes, locknutSpacing, this.orderBy, this.direction).subscribe (hubList => {
             this.hubList = hubList;
